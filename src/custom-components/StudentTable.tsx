@@ -128,7 +128,7 @@ export default function StudentTable() {
     }
 
     return (
-        <div className="space-y-6 px-4 md:px-6 min-h-screen">
+        <div className="space-y-6 px-2 md:px-6 min-h-screen">
             <FloatingCard delay={0}>
                     <div className="">
                         <div className="flex items-center space-x-4">

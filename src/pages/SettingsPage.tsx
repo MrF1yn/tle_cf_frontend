@@ -230,7 +230,7 @@ const SettingsPage: React.FC = () => {
             {/* Header */}
             <FloatingCard delay={0}>
             <div className=" ">
-                <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+                <div className=" mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="">
                         <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0">
@@ -251,7 +251,7 @@ const SettingsPage: React.FC = () => {
             </div>
             </FloatingCard>
 
-            <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className=" mx-auto px-2 sm:px-6 lg:px-8 py-8">
                 <div className="space-y-8">
                     {/* Cron Jobs Section */}
                     <FloatingCard delay={200}>

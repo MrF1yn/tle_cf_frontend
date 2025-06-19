@@ -142,7 +142,7 @@ const StudentProfile: React.FC = () => {
             {/* Header */}
             <FloatingCard delay={0}>
                 <div className=" dark:border-gray-700">
-                    <div className=" mx-auto px-4 sm:px-6 lg:px-8 ">
+                    <div className=" mx-auto px-2 sm:px-6 lg:px-8 ">
                         <div className="">
                             <div className="flex items-start space-x-6">
                                 <div className="flex-shrink-0">
@@ -250,7 +250,7 @@ const StudentProfile: React.FC = () => {
                 </div>
             </FloatingCard>
 
-            <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className=" mx-auto px-2 sm:px-6 lg:px-8 py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Left Column - Contest History */}
 
