@@ -12,7 +12,7 @@ function MainContent() {
     // const location = useLocation()
 
     return (
-        <main className="flex-1">
+        <main className="flex-1 ">
             <div className=" mx-auto">
                 {/* Page Header */}
                 <div className="mb-8">
@@ -70,7 +70,7 @@ function MainContent() {
 export default function App() {
     return (
         <BrowserRouter>
-            <div className="min-h-screen text-foreground bg-background">
+            <div className="min-h-screen text-foreground bg-background transition-colors">
                 <Toaster />
                 <Navbar />
                 <MainContent />

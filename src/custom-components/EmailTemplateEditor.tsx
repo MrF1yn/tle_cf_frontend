@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Mail, Save, Loader2, Code, Eye } from 'lucide-react';
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 
 // Types
 interface EmailTemplate {
@@ -29,11 +30,13 @@ const MonacoEditor: React.FC<{
     onChange: (value: string) => void;
     language: string;
     height?: string;
-}> = ({ value, onChange, language, height = '500px' }) => {
-    const editorRef = useRef<HTMLDivElement>(null);
+    editorRef?: React.MutableRefObject<any>;
+}> = ({ value, onChange, language, height = '500px', editorRef }) => {
+
     const monacoRef = useRef<any>(null);
     const editorInstanceRef = useRef<any>(null);
     const [editorTheme, setEditorTheme] = useState<string>('vs-dark');
+
     useEffect(() => {
         const updateTheme = () => {
             const isDarkMode = document.documentElement.classList.contains('dark');
@@ -78,13 +81,13 @@ const MonacoEditor: React.FC<{
                     });
                 };
                 document.head.appendChild(script);
-            } else if (monacoRef.current && editorRef.current) {
+            } else if (monacoRef.current && editorRef?.current) {
                 initializeEditor();
             }
         };
 
         const initializeEditor = () => {
-            if (editorRef.current && monacoRef.current && !editorInstanceRef.current) {
+            if (editorRef?.current && monacoRef.current && !editorInstanceRef.current) {
 
                 editorInstanceRef.current = monacoRef.current.editor.create(editorRef.current, {
                     value: value,
@@ -103,6 +106,11 @@ const MonacoEditor: React.FC<{
                     folding: true,
                     wordWrap: 'on'
                 });
+
+                if (editorRef && editorRef.current) {
+                    editorRef.current = editorInstanceRef.current;
+                }
+
 
                 editorInstanceRef.current.onDidChangeModelContent(() => {
                     const currentValue = editorInstanceRef.current.getValue();
@@ -152,13 +160,25 @@ const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
                                                                      isSaving = false
                                                                  }) => {
     const [isHtmlDetected, setIsHtmlDetected] = useState(false);
-
+    const editorRef = useRef<any>(null);
     useEffect(() => {
         setIsHtmlDetected(isHtmlContent(emailTemplate.body));
     }, [emailTemplate.body]);
 
     const handleBodyChange = (value: string) => {
         setEmailTemplate({ ...emailTemplate, body: value });
+    };
+    const insertVariableAtCursor = (variable: string) => {
+        if (editorRef.current) {
+            const selection = editorRef.current.getSelection();
+            const op = {
+                range: selection,
+                text: variable,
+                forceMoveMarkers: true
+            };
+            editorRef.current.executeEdits("my-source", [op]);
+            editorRef.current.focus();
+        }
     };
 
     return (
@@ -256,44 +276,43 @@ const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
                         onChange={handleBodyChange}
                         language={isHtmlDetected ? 'html' : 'plaintext'}
                         height="400px"
+                        editorRef={editorRef}
 
                     />
                 </div>
 
 
             </div>
-                    <div
-                        className="bg-secondary/20 dark:bg-card rounded-lg shadow-xl  border-border  p-4 mt-4">
-                        <h4 className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-2">
-                            Available Variables
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm font-semibold">
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{studentName}}`}
-                            </code>
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{currentRating}}`}
-                            </code>
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{maxRating}}`}
-                            </code>
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{lastActivity}}`}
-                            </code>
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{codeforcesHandle}}`}
-                            </code>
-                            <code
-                                className="bg-primary text-white px-2 py-1 rounded w-full break-words">
-                                {`{{email}}`}
-                            </code>
-                        </div>
-                    </div>
+            <div
+                className="bg-secondary/20 dark:bg-card rounded-lg shadow-xl  border-border  p-4 mt-4">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Available Variables
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm font-semibold">
+                    {[
+                        "{{studentName}}",
+                        "{{currentRating}}",
+                        "{{maxRating}}",
+                        "{{lastActivity}}",
+                        "{{codeforcesHandle}}",
+                        "{{email}}"
+                    ].map((variable) => (
+                        <Tooltip key={variable}>
+                            <TooltipTrigger asChild>
+                                <code
+                                    className="bg-primary text-white px-2 py-1 rounded w-full break-words cursor-pointer hover:bg-primary/30 transition-colors"
+                                    onClick={() => insertVariableAtCursor(variable)}
+                                >
+                                    {variable}
+                                </code>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Click to insert at cursor position</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    ))}
+                </div>
+            </div>
 
             {/*/!* Template Info *!/*/}
             {/*<div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">*/}

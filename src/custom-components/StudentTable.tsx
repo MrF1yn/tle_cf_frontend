@@ -155,19 +155,19 @@ export default function StudentTable() {
             <Card className={" border-border shadow-xl md:py-9 md:px-10 bg-secondary/10 dark:bg-card/30"}>
                 <CardHeader>
                     <div className="flex sm:items-center sm:justify-between">
-
+                        <div className="relative mr-auto">
+                            <Input
+                                type="text"
+                                placeholder="Search students..."
+                                className="h-9 pl-8 w-[200px]"
+                                onChange={debouncedResults}
+                            />
+                            <Search
+                                className="h-4 w-4 absolute left-2.5 top-1/2 transform -translate-y-1/2 text-muted-foreground"/>
+                        </div>
                         {/* Desktop Actions */}
                         <div className="hidden sm:flex gap-2 justify-end w-full">
-                            <div className="relative mr-auto">
-                                <Input
-                                    type="text"
-                                    placeholder="Search students..."
-                                    className="h-9 pl-8 w-[200px]"
-                                    onChange={debouncedResults}
-                                />
-                                <Search
-                                    className="h-4 w-4 absolute left-2.5 top-1/2 transform -translate-y-1/2 text-muted-foreground"/>
-                            </div>
+
                             <Button
                                 onClick={downloadCSV}
                                 // variant="outline"
@@ -210,13 +210,13 @@ export default function StudentTable() {
                     </div>
                 </CardHeader>
 
-                <CardContent className="h-[calc(100vh-320px)] sm:h-[500px] md:h-[600px] lg:h-[400px] flex flex-col">
+                <CardContent className="h-[calc(100vh-320px)] sm:h-[500px] md:h-[600px] lg:h-[550px] flex flex-col">
                     <div
                         className="rounded-lg border-border bg-secondary/20 dark:bg-card flex-1 overflow-hidden flex flex-col">
                         <div className="overflow-y-auto flex-1 custom-scrollbar">
                             <Table className="rounded-lg text-md relative">
                                 <TableHeader className={"rounded-lg  "}>
-                                    <TableRow className={"rounded-lg  "}>
+                                <TableRow className={"rounded-lg  "}>
                                         <TableHead
                                             className="font-semibold p-3 rounded-tl-lg bg-secondary dark:bg-secondary">Name</TableHead>
                                         <TableHead
