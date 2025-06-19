@@ -148,7 +148,7 @@ const StudentProfile: React.FC = () => {
                             <FloatingCard delay={0}>
                                 <div className="flex-shrink-0">
                                     <div
-                                        className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                        className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full border-primary border-4 flex items-center justify-center text-white text-2xl font-bold">
                                         {student.titlePhoto ? (
                                             <img src={student.titlePhoto} alt={student.name}
                                                  className="w-full h-full rounded-full object-cover"/>
