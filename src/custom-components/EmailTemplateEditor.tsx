@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Button } from '@/components/ui/button';
 import { Mail, Save, Loader2, Code, Eye } from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip.tsx";
+import {Input} from "@/components/ui/input.tsx";
 
 // Types
 interface EmailTemplate {
@@ -246,9 +247,9 @@ const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
                     <label className="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Email Template Subject
                     </label>
-                    <input
+                    <Input
                         type="text"
-                        value={emailTemplate.subject}
+                        value={emailTemplate.subject || "🔔 Time to get back to coding!"}
                         onChange={(e) => setEmailTemplate({...emailTemplate, subject: e.target.value})}
                         className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none dark:bg-secondary  text-gray-900 dark:text-white"
                         placeholder="Enter your email subject here..."
