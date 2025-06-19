@@ -34,7 +34,7 @@ const filterByDateRange = <T extends { date: string }>(items: T[], days: number)
 };
 
 const getRatingColor = (rating: number) => {
-    if (rating >= 2400) return 'text-red-600';
+    if (rating >= 2400) return 'text-orange-700';
     if (rating >= 2100) return 'text-orange-600';
     if (rating >= 1900) return 'text-purple-600';
     if (rating >= 1600) return 'text-blue-600';
@@ -140,11 +140,12 @@ const StudentProfile: React.FC = () => {
     return (
         <div className="min-h-screen ">
             {/* Header */}
-            <FloatingCard delay={0}>
-                <div className=" dark:border-gray-700">
-                    <div className=" mx-auto px-2 sm:px-6 lg:px-8 ">
-                        <div className="">
-                            <div className="flex items-start space-x-6">
+
+            <div className=" dark:border-gray-700">
+                <div className=" mx-auto px-2 sm:px-6 lg:px-8 ">
+                    <div className="">
+                        <div className="flex items-start space-x-6">
+                            <FloatingCard delay={0}>
                                 <div className="flex-shrink-0">
                                     <div
                                         className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
@@ -157,10 +158,14 @@ const StudentProfile: React.FC = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex-1 min-w-0 ">
+                            </FloatingCard>
+                            <div className="flex-1 min-w-0 ">
+                                <FloatingCard delay={50}>
                                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white break-all">{student.name}</h1>
-                                    <div
-                                        className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2 flex-col md:flex-row w-fit">
+                                </FloatingCard>
+                                <div
+                                    className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2 flex-col md:flex-row w-fit">
+                                    <FloatingCard delay={100}>
                                         <a className="bg-primary hover:text-muted text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
                                            href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
                                            target={"_blank"} rel="noopener noreferrer"
@@ -171,7 +176,8 @@ const StudentProfile: React.FC = () => {
                                             >{student.codeforcesHandle}</span>
 
                                         </a>
-
+                                    </FloatingCard>
+                                    <FloatingCard delay={150}>
                                         <span
                                             className="bg-primary text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
                                         >
@@ -182,7 +188,9 @@ const StudentProfile: React.FC = () => {
                                                     </span>
 
                                     </span>
-                                    </div>
+                                    </FloatingCard>
+                                </div>
+                                <FloatingCard delay={200}>
                                     <div
                                         className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-600 dark:text-gray-300">
                                         <div className="flex items-center gap-1">
@@ -200,12 +208,13 @@ const StudentProfile: React.FC = () => {
                                             Last synced: {new Date(student.lastSyncedAt).toLocaleDateString()}
                                         </div>
                                     </div>
-                                </div>
+                                </FloatingCard>
                             </div>
+                        </div>
 
-                            {/* Stats Cards */}
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
-
+                        {/* Stats Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+                            <FloatingCard delay={250}>
                                 <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
                                     <div className="flex items-center justify-between">
                                         <div>
@@ -215,6 +224,8 @@ const StudentProfile: React.FC = () => {
                                         <TrendingUp className="w-8 h-8 text-blue-200"/>
                                     </div>
                                 </div>
+                            </FloatingCard>
+                            <FloatingCard delay={300}>
                                 <div
                                     className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
                                     <div className="flex items-center justify-between">
@@ -225,6 +236,8 @@ const StudentProfile: React.FC = () => {
                                         <Award className="w-8 h-8 text-purple-200"/>
                                     </div>
                                 </div>
+                            </FloatingCard>
+                            <FloatingCard delay={350}>
                                 <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
                                     <div className="flex items-center justify-between">
                                         <div>
@@ -234,6 +247,8 @@ const StudentProfile: React.FC = () => {
                                         <Users className="w-8 h-8 text-green-200"/>
                                     </div>
                                 </div>
+                            </FloatingCard>
+                            <FloatingCard delay={400}>
                                 <div
                                     className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
                                     <div className="flex items-center justify-between">
@@ -244,11 +259,11 @@ const StudentProfile: React.FC = () => {
                                         <Code className="w-8 h-8 text-orange-200"/>
                                     </div>
                                 </div>
-                            </div>
+                            </FloatingCard>
                         </div>
                     </div>
                 </div>
-            </FloatingCard>
+            </div>
 
             <div className=" mx-auto px-2 sm:px-6 lg:px-8 py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -256,7 +271,7 @@ const StudentProfile: React.FC = () => {
 
                     <div className="lg:col-span-2 space-y-8">
                         {/* Contest History */}
-                        <FloatingCard delay={200}>
+                        <FloatingCard delay={450}>
                             <div
                                 className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
                                 <div className="flex items-center justify-between mb-6">
@@ -325,9 +340,9 @@ const StudentProfile: React.FC = () => {
                                                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                                                 .map((contest, index) => (
                                                     <div key={index}
-                                                         className="flex items-center justify-between p-4 bg-secondary/20 hover:bg-secondary/40 transition rounded-lg">
+                                                         className="flex items-center justify-between p-4 bg-gray-200 dark:bg-secondary/20 hover:bg-secondary/40 transition rounded-lg">
                                                         <div>
-                                                            <h4 className="font-medium text-gray-900 dark:text-white">{contest.name}</h4>
+                                                            <h4 className="font-medium text-sm sm:text-lg text-gray-900 dark:text-white">{contest.name}</h4>
                                                             <p className="text-sm text-gray-600 dark:text-gray-300">{new Date(contest.date).toLocaleDateString()}</p>
                                                         </div>
                                                         <div className="text-right">
@@ -336,9 +351,15 @@ const StudentProfile: React.FC = () => {
                                                                 {contest.rating}
                                                             </span>
                                                             </p>
-                                                            <p className="text-sm text-gray-600 dark:text-gray-300">
-                                                                Rank: {contest.rank} | Unsolved: {contest.unsolved}
-                                                            </p>
+                                                            <span className={"text-xs text-center flex w-full sm:flex-row gap-1"}>
+                                                                <span className=" font-semibold text-gray-600 dark:text-gray-300 rounded-md bg-primary/20 px-3 py-1">
+                                                                    Rank: {contest.rank}
+                                                                </span>
+                                                                <span className=" font-semibold text-gray-600 dark:text-gray-300 rounded-md bg-primary/20 px-3 py-1">
+                                                                    Unsolved: {contest.unsolved}
+                                                                </span>
+                                                            </span>
+
                                                         </div>
                                                     </div>
                                                 ))
@@ -352,7 +373,7 @@ const StudentProfile: React.FC = () => {
                         </FloatingCard>
 
                         {/* Submission Activity */}
-                        <FloatingCard delay={400}>
+                        <FloatingCard delay={500}>
                             <div
                                 className="submission-heatmap bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
                                 <div className="flex-col items-center justify-between mb-6">
@@ -449,7 +470,7 @@ const StudentProfile: React.FC = () => {
                         </FloatingCard>
 
                         {/* Problem Solving Data */}
-                        <FloatingCard delay={600}>
+                        <FloatingCard delay={550}>
                             <div
                                 className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
                                 <div className="flex items-center justify-between mb-6">
@@ -528,7 +549,7 @@ const StudentProfile: React.FC = () => {
                             </div>
                         </FloatingCard>
                     </div>
-                    <FloatingCard delay={100}>
+                    <FloatingCard delay={400}>
                         <EmailRemindersToggle student={student}/>
                     </FloatingCard>
                 </div>
