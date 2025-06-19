@@ -286,9 +286,9 @@ const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
             <div
                 className="bg-secondary/20 dark:bg-card rounded-lg shadow-xl  border-border  p-4 mt-4">
                 <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Available Variables
+                    Available Variables (Click to insert):
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm font-semibold">
+                <div className="flex flex-wrap gap-2 text-sm font-semibold">
                     {[
                         "{{studentName}}",
                         "{{currentRating}}",
@@ -300,7 +300,7 @@ const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
                         <Tooltip key={variable}>
                             <TooltipTrigger asChild>
                                 <code
-                                    className="bg-primary text-white px-2 py-1 rounded w-full break-words cursor-pointer hover:bg-primary/30 transition-colors"
+                                    className="bg-gray-500 dark:bg-secondary rounded-full flex-0 text-white px-2 py-1 rounded w-full break-words cursor-pointer hover:bg-gray-400 dark:hover:bg-primary/30 transition-colors"
                                     onClick={() => insertVariableAtCursor(variable)}
                                 >
                                     {variable}
