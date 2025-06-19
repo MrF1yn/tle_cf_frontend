@@ -53,7 +53,10 @@ const SettingsPage: React.FC = () => {
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/student/emailTemplate`);
             console.log('Email Template Response:', response.data);
             if (response.data.success) {
-                setEmailTemplate(response.data.data);
+                setEmailTemplate({
+                    subject: response.data.data.subject || "",
+                    body: response.data.data.body || "",
+                });
             } else {
                 toast.error("Failed to fetch email template");
             }
