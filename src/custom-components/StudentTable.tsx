@@ -212,28 +212,29 @@ export default function StudentTable() {
 
                 <CardContent className="h-[calc(100vh-320px)] sm:h-[500px] md:h-[600px] lg:h-[550px] flex flex-col">
                     <div
-                        className="rounded-lg border-border bg-secondary/20 dark:bg-card flex-1 overflow-hidden flex flex-col">
+                        className="rounded-lg border-border bg-gray-100y dark:bg-card flex-1 overflow-hidden flex flex-col">
                         <div className="overflow-y-auto flex-1 custom-scrollbar">
                             <Table className="rounded-lg text-md relative">
                                 <TableHeader className={"rounded-lg  "}>
                                 <TableRow className={"rounded-lg  "}>
                                         <TableHead
-                                            className="font-semibold p-3 rounded-tl-lg bg-secondary dark:bg-secondary">Name</TableHead>
+                                            className="font-semibold p-3 rounded-tl-lg bg-gray-100  dark:bg-secondary">
+                                            Name</TableHead>
                                         <TableHead
-                                            className="font-semibold hidden md:table-cell bg-secondary dark:bg-secondary">Email</TableHead>
+                                            className="font-semibold hidden md:table-cell bg-gray-100 dark:bg-secondary ">Email</TableHead>
                                         <TableHead
-                                            className="font-semibold hidden lg:table-cell bg-secondary dark:bg-secondary">Phone</TableHead>
+                                            className="font-semibold hidden lg:table-cell bg-gray-100 dark:bg-secondary ">Phone</TableHead>
                                         <TableHead
-                                            className="font-semibold bg-secondary dark:bg-secondary">Handle</TableHead>
+                                            className="font-semibold bg-gray-100  dark:bg-secondary ">Handle</TableHead>
                                         <TableHead
-                                            className="font-semibold text-center bg-secondary dark:bg-secondary">Current</TableHead>
+                                            className="font-semibold text-center bg-gray-100  dark:bg-secondary ">Current</TableHead>
                                         <TableHead
-                                            className="font-semibold text-center hidden sm:table-cell bg-secondary dark:bg-secondary">Max</TableHead>
+                                            className="font-semibold text-center hidden sm:table-cell bg-gray-100  dark:bg-secondary ">Max</TableHead>
                                         <TableHead
-                                            className="font-semibold hidden xl:table-cell bg-secondary dark:bg-secondary">Last
+                                            className="font-semibold hidden xl:table-cell bg-gray-100  dark:bg-secondary ">Last
                                             Sync</TableHead>
                                         <TableHead
-                                            className="font-semibold text-center rounded-tr-lg bg-secondary dark:bg-secondary">Actions</TableHead>
+                                            className="font-semibold text-center rounded-tr-lg bg-gray-100  dark:bg-secondary ">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -257,8 +258,12 @@ export default function StudentTable() {
                                         </TableRow>
                                     ) : (
                                         students.map((student) => (
+
                                             <TableRow key={student.id}
-                                                      className="hover:bg-secondary/50 font-semibold border-none">
+                                                      className="hover:bg-gray-100 dark:hover:bg-secondary/50 cursor-pointer font-semibold border-none"
+                                                      onClick={() => navigate(`/students/${student.id}`)}
+                                            >
+
                                                 <TableCell className="p-3">
                                                     <div>
                                                         <div className="font-semibold">{student.name}</div>
@@ -274,7 +279,7 @@ export default function StudentTable() {
                                                     {student.phone}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <a className="bg-primary hover:text-muted text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
+                                                    <a className="bg-gray-500 hover:text-secondary text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
                                                        href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
                                                        target={"_blank"} rel="noopener noreferrer"
                                                     >
