@@ -19,6 +19,7 @@ import {Tooltip as ReactTooltip} from 'react-tooltip'
 import {fetchStudentContests, fetchStudentProblems} from "@/lib/requests.ts";
 import EmailRemindersToggle from "@/custom-components/EmailRemindersToggle.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+import {FloatingCard} from "@/custom-components/FloatingCard.tsx";
 
 const getDateRange = (days: number) => {
     const end = new Date();
@@ -139,221 +140,233 @@ const StudentProfile: React.FC = () => {
     return (
         <div className="min-h-screen ">
             {/* Header */}
-            <div className=" dark:border-gray-700">
-                <div className=" mx-auto px-4 sm:px-6 lg:px-8 ">
-                    <div className="">
-                        <div className="flex items-start space-x-6">
-                            <div className="flex-shrink-0">
-                                <div
-                                    className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                                    {student.titlePhoto ? (
-                                        <img src={student.titlePhoto} alt={student.name}
-                                             className="w-full h-full rounded-full object-cover"/>
-                                    ) : (
-                                        <span
-                                            className="text-xl lg:text-4xl">{student.name.split(' ').map(n => n[0]).join('')}</span>
-                                    )}
+            <FloatingCard delay={0}>
+                <div className=" dark:border-gray-700">
+                    <div className=" mx-auto px-4 sm:px-6 lg:px-8 ">
+                        <div className="">
+                            <div className="flex items-start space-x-6">
+                                <div className="flex-shrink-0">
+                                    <div
+                                        className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                        {student.titlePhoto ? (
+                                            <img src={student.titlePhoto} alt={student.name}
+                                                 className="w-full h-full rounded-full object-cover"/>
+                                        ) : (
+                                            <span
+                                                className="text-xl lg:text-4xl">{student.name.split(' ').map(n => n[0]).join('')}</span>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex-1 min-w-0 ">
-                                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white break-all">{student.name}</h1>
-                                <div className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2 flex-col md:flex-row w-fit">
-                                    <a className="bg-primary hover:text-muted text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
-                                       href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
-                                       target={"_blank"} rel="noopener noreferrer"
-                                    >
-                                        <LinkIcon className="inline h-4 w-4 mr-1"/>
-                                                    <span
-                                                        className={"font-semibold hover:underline break-all "}
-                                                    >{student.codeforcesHandle}</span>
+                                <div className="flex-1 min-w-0 ">
+                                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white break-all">{student.name}</h1>
+                                    <div
+                                        className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2 flex-col md:flex-row w-fit">
+                                        <a className="bg-primary hover:text-muted text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
+                                           href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
+                                           target={"_blank"} rel="noopener noreferrer"
+                                        >
+                                            <LinkIcon className="inline h-4 w-4 mr-1"/>
+                                            <span
+                                                className={"font-semibold hover:underline break-all "}
+                                            >{student.codeforcesHandle}</span>
 
-                                    </a>
+                                        </a>
 
-                                    <span className="bg-primary text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
-                                    >
+                                        <span
+                                            className="bg-primary text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
+                                        >
                                         <Medal className="inline h-4 w-4 mr-1"/>
                                                     <span
                                                         className={"font-semibold break-all "}
-                                                    >{student.rank}</span>
+                                                    >{student.rank}
+                                                    </span>
 
                                     </span>
+                                    </div>
+                                    <div
+                                        className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-600 dark:text-gray-300">
+                                        <div className="flex items-center gap-1">
+                                            <Mail className="w-4 h-4"/>
+                                            <a href={`mailto:${student.email}`} className="hover:underline break-all">
+                                                {student.email}
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <Phone className="w-4 h-4"/>
+                                            {student.phone}
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <Calendar className="w-4 h-4"/>
+                                            Last synced: {new Date(student.lastSyncedAt).toLocaleDateString()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Stats Cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+
+                                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-blue-100">Current Rating</p>
+                                            <p className="text-2xl font-bold">{student.currentRating}</p>
+                                        </div>
+                                        <TrendingUp className="w-8 h-8 text-blue-200"/>
+                                    </div>
                                 </div>
                                 <div
-                                    className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-600 dark:text-gray-300">
-                                    <div className="flex items-center gap-1">
-                                        <Mail className="w-4 h-4"/>
-                                        <a href={`mailto:${student.email}`} className="hover:underline break-all">
-                                            {student.email}
-                                        </a>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <Phone className="w-4 h-4"/>
-                                        {student.phone}
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <Calendar className="w-4 h-4"/>
-                                        Last synced: {new Date(student.lastSyncedAt).toLocaleDateString()}
+                                    className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-purple-100">Max Rating</p>
+                                            <p className="text-2xl font-bold">{student.maxRating}</p>
+                                        </div>
+                                        <Award className="w-8 h-8 text-purple-200"/>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Stats Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
-
-                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="text-blue-100">Current Rating</p>
-                                        <p className="text-2xl font-bold">{student.currentRating}</p>
+                                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-green-100">Contests</p>
+                                            <p className="text-2xl font-bold">{student.contests.length}</p>
+                                        </div>
+                                        <Users className="w-8 h-8 text-green-200"/>
                                     </div>
-                                    <TrendingUp className="w-8 h-8 text-blue-200"/>
                                 </div>
-                            </div>
-                            <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="text-purple-100">Max Rating</p>
-                                        <p className="text-2xl font-bold">{student.maxRating}</p>
+                                <div
+                                    className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-orange-100">Problems Solved</p>
+                                            <p className="text-2xl font-bold">{student.problemStats?.daysAllTime?.totalSolved || 0}</p>
+                                        </div>
+                                        <Code className="w-8 h-8 text-orange-200"/>
                                     </div>
-                                    <Award className="w-8 h-8 text-purple-200"/>
-                                </div>
-                            </div>
-                            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="text-green-100">Contests</p>
-                                        <p className="text-2xl font-bold">{student.contests.length}</p>
-                                    </div>
-                                    <Users className="w-8 h-8 text-green-200"/>
-                                </div>
-                            </div>
-                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="text-orange-100">Problems Solved</p>
-                                        <p className="text-2xl font-bold">{student.problemStats?.daysAllTime?.totalSolved || 0}</p>
-                                    </div>
-                                    <Code className="w-8 h-8 text-orange-200"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </FloatingCard>
 
             <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Left Column - Contest History */}
+
                     <div className="lg:col-span-2 space-y-8">
                         {/* Contest History */}
-                        <div
-                            className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Contest History</h2>
-                                <div className="flex items-center gap-2">
-                                    <Select
-                                        value={contestFilter.toString()}
-                                        onValueChange={(e) => setContestFilter(Number(e) as 30 | 90 | 365)}
-                                        // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                    >
-                                        <SelectTrigger className=" rounded-md text-sm bg-background border-border">
-                                            <Filter className="w-2 h-2  "/>
-                                            <SelectValue placeholder="Theme"/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value={"30"}>Last 30 days</SelectItem>
-                                            <SelectItem value={"90"}>Last 90 days</SelectItem>
-                                            <SelectItem value={"365"}>Last 365 days</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-
-                            {/* Rating Chart */}
-                            {ratingChartData.length > 0 && (
-                                <div className="mb-6">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Rating
-                                        Progress</h3>
-                                    <div className="h-64">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <AreaChart data={ratingChartData}>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
-                                                <XAxis dataKey="date" stroke="#6b7280"/>
-                                                <YAxis stroke="#6b7280"/>
-                                                <Tooltip
-                                                    contentStyle={{
-                                                        backgroundColor: 'var(--card, #ffffff)',
-                                                        border: '1px solid var(--tooltip-border, #e5e7eb)',
-                                                        borderRadius: '8px',
-                                                        color: 'var(--primary, #1f2937)'
-                                                    }}
-                                                />
-                                                <Area
-                                                    type="monotone"
-                                                    dataKey="rating"
-                                                    stroke='var(--primary, #ffffff)'
-                                                    strokeWidth={2}
-                                                    fill='var(--primary, #ffffff)'
-                                                    fillOpacity={0.3}
-                                                    dot={{fill: 'var(--primary, #ffffff)', strokeWidth: 2, r: 4}}
-                                                />
-                                            </AreaChart>
-                                        </ResponsiveContainer>
+                        <FloatingCard delay={200}>
+                            <div
+                                className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Contest
+                                        History</h2>
+                                    <div className="flex items-center gap-2">
+                                        <Select
+                                            value={contestFilter.toString()}
+                                            onValueChange={(e) => setContestFilter(Number(e) as 30 | 90 | 365)}
+                                            // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        >
+                                            <SelectTrigger className=" rounded-md text-sm bg-background border-border">
+                                                <Filter className="w-2 h-2  "/>
+                                                <SelectValue placeholder="Theme"/>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value={"30"}>Last 30 days</SelectItem>
+                                                <SelectItem value={"90"}>Last 90 days</SelectItem>
+                                                <SelectItem value={"365"}>Last 365 days</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
-                            )}
 
-                            {/* Contest List */}
-                            <div>
-                                <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Contest
-                                    Results</h3>
-                                <div className="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
-                                    {filteredContests.length > 0 ? (
-                                        filteredContests
-                                            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                                            .map((contest, index) => (
-                                                <div key={index}
-                                                     className="flex items-center justify-between p-4 bg-secondary/20 hover:bg-secondary/40 transition rounded-lg">
-                                                    <div>
-                                                        <h4 className="font-medium text-gray-900 dark:text-white">{contest.name}</h4>
-                                                        <p className="text-sm text-gray-600 dark:text-gray-300">{new Date(contest.date).toLocaleDateString()}</p>
-                                                    </div>
-                                                    <div className="text-right">
-                                                        <p className={`font-semibold`}>
+                                {/* Rating Chart */}
+                                {ratingChartData.length > 0 && (
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Rating
+                                            Progress</h3>
+                                        <div className="h-64">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <AreaChart data={ratingChartData}>
+                                                    <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
+                                                    <XAxis dataKey="date" stroke="#6b7280"/>
+                                                    <YAxis stroke="#6b7280"/>
+                                                    <Tooltip
+                                                        contentStyle={{
+                                                            backgroundColor: 'var(--card, #ffffff)',
+                                                            border: '1px solid var(--tooltip-border, #e5e7eb)',
+                                                            borderRadius: '8px',
+                                                            color: 'var(--primary, #1f2937)'
+                                                        }}
+                                                    />
+                                                    <Area
+                                                        type="monotone"
+                                                        dataKey="rating"
+                                                        stroke='var(--primary, #ffffff)'
+                                                        strokeWidth={2}
+                                                        fill='var(--primary, #ffffff)'
+                                                        fillOpacity={0.3}
+                                                        dot={{fill: 'var(--primary, #ffffff)', strokeWidth: 2, r: 4}}
+                                                    />
+                                                </AreaChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Contest List */}
+                                <div>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Contest
+                                        Results</h3>
+                                    <div className="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
+                                        {filteredContests.length > 0 ? (
+                                            filteredContests
+                                                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                                                .map((contest, index) => (
+                                                    <div key={index}
+                                                         className="flex items-center justify-between p-4 bg-secondary/20 hover:bg-secondary/40 transition rounded-lg">
+                                                        <div>
+                                                            <h4 className="font-medium text-gray-900 dark:text-white">{contest.name}</h4>
+                                                            <p className="text-sm text-gray-600 dark:text-gray-300">{new Date(contest.date).toLocaleDateString()}</p>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className={`font-semibold`}>
                                                             <span className={` ${getRatingColor(contest.rating)}`}>
                                                                 {contest.rating}
                                                             </span>
-                                                        </p>
-                                                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                                                            Rank: {contest.rank} | Unsolved: {contest.unsolved}
-                                                        </p>
+                                                            </p>
+                                                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                                                                Rank: {contest.rank} | Unsolved: {contest.unsolved}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))
-                                    ) : (
-                                        <p className="text-gray-500 dark:text-gray-400 text-center py-8">No contests
-                                            found for the selected period</p>
-                                    )}
+                                                ))
+                                        ) : (
+                                            <p className="text-gray-500 dark:text-gray-400 text-center py-8">No contests
+                                                found for the selected period</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </FloatingCard>
 
                         {/* Submission Activity */}
-                        <div
-                            className="submission-heatmap bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
-                            <div className="flex-col items-center justify-between mb-6">
+                        <FloatingCard delay={400}>
+                            <div
+                                className="submission-heatmap bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
+                                <div className="flex-col items-center justify-between mb-6">
 
-                                <div className="flex items-center justify-between gap-2 mb-4">
-                                    <h2 className="text-xl font-semibold ">Submission
-                                        Activity</h2>
-                                    <span className={"flex items-center gap-1"}>
+                                    <div className="flex items-center justify-between gap-2 mb-4">
+                                        <h2 className="text-xl font-semibold ">Submission
+                                            Activity</h2>
+                                        <span className={"flex items-center gap-1"}>
                                         {/*<Filter className="w-4 h-4 text-gray-500 dark:text-gray-400"/>*/}
-                                        <Select
-                                            value={selectedYear.toString()}
-                                            onValueChange={e => setSelectedYear(Number(e))}
-                                            // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        >
+                                            <Select
+                                                value={selectedYear.toString()}
+                                                onValueChange={e => setSelectedYear(Number(e))}
+                                                // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                            >
                                     <SelectTrigger className=" rounded-md text-sm border-border">
                                         <Filter className="w-2 h-2"/>
                                         <SelectValue placeholder="Theme"/>
@@ -366,153 +379,158 @@ const StudentProfile: React.FC = () => {
                                 </Select>
                                 </span>
 
-                                </div>
-                                <div className="overflow-x-auto pb-2">
-                                    <div className="min-w-[700px]">
-                                        <CalendarHeatmap
+                                    </div>
+                                    <div className="overflow-x-auto pb-2">
+                                        <div className="min-w-[700px]">
+                                            <CalendarHeatmap
 
-                                            startDate={new Date(selectedYear, 0, 1)}
-                                            endDate={new Date(selectedYear, 11, 31)}
-                                            values={getSubmissionHeatmapData()}
-                                            transformDayElement={(rect) => {
-                                                const element = rect as unknown as {
-                                                    props: {
-                                                        width: number;
-                                                        height: number;
-                                                        x: number;
-                                                        y: number;
-                                                    }
-                                                };
+                                                startDate={new Date(selectedYear, 0, 1)}
+                                                endDate={new Date(selectedYear, 11, 31)}
+                                                values={getSubmissionHeatmapData()}
+                                                transformDayElement={(rect) => {
+                                                    const element = rect as unknown as {
+                                                        props: {
+                                                            width: number;
+                                                            height: number;
+                                                            x: number;
+                                                            y: number;
+                                                        }
+                                                    };
 
-                                                const originalWidth = element.props.width;
-                                                const originalHeight = element.props.height;
-                                                const newWidth = originalWidth * 0.9;
-                                                const newHeight = originalHeight * 0.9;
-                                                const xOffset = (originalWidth - newWidth) / 2;
-                                                const yOffset = (originalHeight - newHeight) / 2;
+                                                    const originalWidth = element.props.width;
+                                                    const originalHeight = element.props.height;
+                                                    const newWidth = originalWidth * 0.9;
+                                                    const newHeight = originalHeight * 0.9;
+                                                    const xOffset = (originalWidth - newWidth) / 2;
+                                                    const yOffset = (originalHeight - newHeight) / 2;
 
-                                                return React.cloneElement(rect as React.ReactElement<React.SVGProps<SVGRectElement>>, {
-                                                    width: newWidth,
-                                                    height: newHeight,
-                                                    x: element.props.x + xOffset,
-                                                    y: element.props.y + yOffset,
-                                                    rx: 2,
-                                                    ry: 2,
-                                                });
-                                            }}
-                                            classForValue={(value) => {
-                                                if (!value || value.count === 0) return 'color-empty';
-                                                if (value.count < 2) return 'color-github-1';
-                                                if (value.count < 4) return 'color-github-2';
-                                                if (value.count < 6) return 'color-github-3';
-                                                return 'color-github-4';
-                                            }}
-                                            tooltipDataAttrs={(value) => ({
-                                                'data-tooltip-id': 'heatmap-tooltip',
-                                                'data-tooltip-content': value?.date
-                                                    ? `${new Date(value.date).toISOString().slice(0, 10)} has count: ${value.count}`
-                                                    : 'No submissions'
-                                            }) as { [key: string]: string }}
-                                            showWeekdayLabels={true}
-                                            onClick={(value) => value && alert(`Clicked on ${value.date} with count: ${value.count}`)}
-                                        />
-                                        <ReactTooltip id="heatmap-tooltip"/>
+                                                    return React.cloneElement(rect as React.ReactElement<React.SVGProps<SVGRectElement>>, {
+                                                        width: newWidth,
+                                                        height: newHeight,
+                                                        x: element.props.x + xOffset,
+                                                        y: element.props.y + yOffset,
+                                                        rx: 2,
+                                                        ry: 2,
+                                                    });
+                                                }}
+                                                classForValue={(value) => {
+                                                    if (!value || value.count === 0) return 'color-empty';
+                                                    if (value.count < 2) return 'color-github-1';
+                                                    if (value.count < 4) return 'color-github-2';
+                                                    if (value.count < 6) return 'color-github-3';
+                                                    return 'color-github-4';
+                                                }}
+                                                tooltipDataAttrs={(value) => ({
+                                                    'data-tooltip-id': 'heatmap-tooltip',
+                                                    'data-tooltip-content': value?.date
+                                                        ? `${new Date(value.date).toISOString().slice(0, 10)} has count: ${value.count}`
+                                                        : 'No submissions'
+                                                }) as { [key: string]: string }}
+                                                showWeekdayLabels={true}
+                                                onClick={(value) => value && alert(`Clicked on ${value.date} with count: ${value.count}`)}
+                                            />
+                                            <ReactTooltip id="heatmap-tooltip"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div
-                                className="flex items-center justify-between mt-4 text-sm text-gray-600 dark:text-gray-300">
-                                <span>Less</span>
-                                <div className="flex items-center gap-1">
-                                    <div className="w-3 h-3 bg-gray-200 dark:bg-gray-600 rounded-sm"></div>
-                                    <div className="w-3 h-3 bg-green-200 dark:bg-green-800 rounded-sm"></div>
-                                    <div className="w-3 h-3 bg-green-400 dark:bg-green-600 rounded-sm"></div>
-                                    <div className="w-3 h-3 bg-green-600 dark:bg-green-500 rounded-sm"></div>
-                                    <div className="w-3 h-3 bg-green-800 dark:bg-green-400 rounded-sm"></div>
+                                <div
+                                    className="flex items-center justify-between mt-4 text-sm text-gray-600 dark:text-gray-300">
+                                    <span>Less</span>
+                                    <div className="flex items-center gap-1">
+                                        <div className="w-3 h-3 bg-gray-200 dark:bg-gray-600 rounded-sm"></div>
+                                        <div className="w-3 h-3 bg-green-200 dark:bg-green-800 rounded-sm"></div>
+                                        <div className="w-3 h-3 bg-green-400 dark:bg-green-600 rounded-sm"></div>
+                                        <div className="w-3 h-3 bg-green-600 dark:bg-green-500 rounded-sm"></div>
+                                        <div className="w-3 h-3 bg-green-800 dark:bg-green-400 rounded-sm"></div>
+                                    </div>
+                                    <span>More</span>
                                 </div>
-                                <span>More</span>
                             </div>
-                        </div>
+                        </FloatingCard>
 
                         {/* Problem Solving Data */}
-                        <div
-                            className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-semibold text-black dark:text-white">Problem
-                                    Solving
-                                    Data</h2>
-                                <div className="flex items-center gap-2">
-                                    <Select
-                                        value={problemFilter.toString()}
-                                        onValueChange={(e) => setProblemFilter(Number(e) as 7 | 30 | 90)}
-                                        // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                    >
-                                        <SelectTrigger className=" rounded-md text-sm border-border">
-                                            <Filter className="w-2 h-2 "/>
-                                            <SelectValue placeholder="Theme"/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value={"7"}>Last 7 days</SelectItem>
-                                            <SelectItem value={"30"}>Last 30 days</SelectItem>
-                                            <SelectItem value={"90"}>Last 90 days</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                        <FloatingCard delay={600}>
+                            <div
+                                className="bg-card rounded-lg shadow-xl border border-border dark:border-2 p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-xl font-semibold text-black dark:text-white">Problem
+                                        Solving
+                                        Data</h2>
+                                    <div className="flex items-center gap-2">
+                                        <Select
+                                            value={problemFilter.toString()}
+                                            onValueChange={(e) => setProblemFilter(Number(e) as 7 | 30 | 90)}
+                                            // className="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        >
+                                            <SelectTrigger className=" rounded-md text-sm border-border">
+                                                <Filter className="w-2 h-2 "/>
+                                                <SelectValue placeholder="Theme"/>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value={"7"}>Last 7 days</SelectItem>
+                                                <SelectItem value={"30"}>Last 30 days</SelectItem>
+                                                <SelectItem value={"90"}>Last 90 days</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+
+                                {/* Stats Grid */}
+                                {currentStats && (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                        <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentStats.maxRating}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">Most
+                                                Difficult</p>
+                                        </div>
+                                        <div
+                                            className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                            <p className="text-2xl font-bold text-green-600 dark:text-green-400">{currentStats.totalSolved}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">Total Solved</p>
+                                        </div>
+                                        <div
+                                            className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                            <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{Math.round(currentStats.avgRating)}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">Average
+                                                Rating</p>
+                                        </div>
+                                        <div
+                                            className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                            <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{currentStats.avgPerDay.toFixed(1)}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">Problems/Day</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Rating Distribution Chart */}
+                                <div>
+                                    <h3 className="text-lg font-medium mb-4 text-black dark:text-white">Rating
+                                        Distribution</h3>
+                                    <div className="h-64">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={getRatingDistribution()}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
+                                                <XAxis dataKey="range" stroke="#6b7280"/>
+                                                <YAxis stroke="#6b7280"/>
+                                                <Tooltip
+                                                    contentStyle={{
+                                                        backgroundColor: 'var(--card, #ffffff)',
+                                                        border: '1px solid var(--primary, #ffffff)',
+                                                        borderRadius: '8px',
+                                                        color: 'var(--primary, #ffffff)'
+                                                    }}
+                                                />
+                                                <Bar dataKey="count" fill="var(--primary, #ffffff)"/>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* Stats Grid */}
-                            {currentStats && (
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                    <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                        <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{currentStats.maxRating}</p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300">Most
-                                            Difficult</p>
-                                    </div>
-                                    <div
-                                        className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                        <p className="text-2xl font-bold text-green-600 dark:text-green-400">{currentStats.totalSolved}</p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300">Total Solved</p>
-                                    </div>
-                                    <div
-                                        className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                        <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{Math.round(currentStats.avgRating)}</p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300">Average
-                                            Rating</p>
-                                    </div>
-                                    <div
-                                        className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                                        <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{currentStats.avgPerDay.toFixed(1)}</p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300">Problems/Day</p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Rating Distribution Chart */}
-                            <div>
-                                <h3 className="text-lg font-medium mb-4 text-black dark:text-white">Rating
-                                    Distribution</h3>
-                                <div className="h-64">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={getRatingDistribution()}>
-                                            <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
-                                            <XAxis dataKey="range" stroke="#6b7280"/>
-                                            <YAxis stroke="#6b7280"/>
-                                            <Tooltip
-                                                contentStyle={{
-                                                    backgroundColor: 'var(--card, #ffffff)',
-                                                    border: '1px solid var(--primary, #ffffff)',
-                                                    borderRadius: '8px',
-                                                    color: 'var(--primary, #ffffff)'
-                                                }}
-                                            />
-                                            <Bar dataKey="count" fill="var(--primary, #ffffff)"/>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </div>
-                        </div>
+                        </FloatingCard>
                     </div>
-                    <EmailRemindersToggle student={student}/>
+                    <FloatingCard delay={100}>
+                        <EmailRemindersToggle student={student}/>
+                    </FloatingCard>
                 </div>
             </div>
 

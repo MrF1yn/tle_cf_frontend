@@ -15,6 +15,7 @@ import {toast} from "sonner";
 import {Switch} from "@/components/ui/switch.tsx";
 import EmailTemplateEditor from "@/custom-components/EmailTemplateEditor.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {FloatingCard} from "@/custom-components/FloatingCard.tsx";
 
 interface CronJob {
     id: string;
@@ -224,6 +225,7 @@ const SettingsPage: React.FC = () => {
     return (
         <div className="min-h-screen">
             {/* Header */}
+            <FloatingCard delay={0}>
             <div className=" ">
                 <div className=" mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="">
@@ -244,10 +246,12 @@ const SettingsPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            </FloatingCard>
 
             <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="space-y-8">
                     {/* Cron Jobs Section */}
+                    <FloatingCard delay={200}>
                     <div
                         className="bg-secondary/10 dark:bg-card/30 rounded-lg shadow-xl border border-border  p-6">
                         <div className="flex items-center justify-between mb-6">
@@ -400,12 +404,15 @@ const SettingsPage: React.FC = () => {
                             </div>
                         )}
                     </div>
+                    </FloatingCard>
+                    <FloatingCard delay={400}>
                     <EmailTemplateEditor
                         emailTemplate={emailTemplate}
                         setEmailTemplate={setEmailTemplate}
                         saveEmailTemplate={saveEmailTemplate}
                         isSaving={isSaving}
                     ></EmailTemplateEditor>
+                    </FloatingCard>
                 </div>
             </div>
         </div>

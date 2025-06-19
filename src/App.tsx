@@ -1,6 +1,6 @@
 
-import { BookOpen} from "lucide-react"
-import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
+// import { BookOpen} from "lucide-react"
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import StudentTable from "@/custom-components/StudentTable.tsx";
 import CompetitiveProgrammingHomepage from "@/pages/HomePage.tsx";
 import StudentProfile from "@/pages/StudentProfile.tsx";
@@ -9,38 +9,38 @@ import {Toaster} from "sonner";
 import SettingsPage from "@/pages/SettingsPage.tsx";
 
 function MainContent() {
-    const location = useLocation()
+    // const location = useLocation()
 
     return (
         <main className="flex-1">
-            <div className=" mx-auto  py-8">
+            <div className=" mx-auto">
                 {/* Page Header */}
                 <div className="mb-8">
-                    {location.pathname === '/dashboard' && (
-                        <div className="text-center mb-8">
-                            <div
-                                className=" inline-flex flex-col md:flex-row items-center space-x-3 gap-2 px-6 py-3 border-border border-2  rounded-full mb-8 backdrop-blur-sm bg-primary/10  ">
-                                <div className="relative">
-                                    <BookOpen className="w-5 h-5 "/>
-                                    <div
-                                        className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                                </div>
-                                <span className="text-sm md:text-md font-semibold ">
-                  Competitive Programming Analytics
-                </span>
-                            </div>
-                            <h1 className="text-4xl font-black text-gray-900 dark:text-white leading-tight dark:text-white mb-2">
-                                {"Student "}
-                                <span className={"text-primary"}>
-                                    Dashboard
-                                </span>
-                            </h1>
-                            <p className="font-semibold text-lg text-primary dark:text-white max-w-2xl mx-auto">
-                                Track competitive programming progress, analyze performance metrics, and monitor student
-                                growth across multiple platforms.
-                            </p>
-                        </div>
-                    )}
+                {/*    {location.pathname === '/dashboard' && (*/}
+                {/*        <div className="text-center mb-8">*/}
+                {/*            <div*/}
+                {/*                className=" inline-flex flex-col md:flex-row items-center space-x-3 gap-2 px-6 py-3 border-border border-2  rounded-full mb-8 backdrop-blur-sm bg-primary/10  ">*/}
+                {/*                <div className="relative">*/}
+                {/*                    <BookOpen className="w-5 h-5 "/>*/}
+                {/*                    <div*/}
+                {/*                        className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>*/}
+                {/*                </div>*/}
+                {/*                <span className="text-sm md:text-md font-semibold ">*/}
+                {/*  Competitive Programming Analytics*/}
+                {/*</span>*/}
+                {/*            </div>*/}
+                {/*            <h1 className="text-4xl font-black text-gray-900 dark:text-white leading-tight dark:text-white mb-2">*/}
+                {/*                {"Student "}*/}
+                {/*                <span className={"text-primary"}>*/}
+                {/*                    Dashboard*/}
+                {/*                </span>*/}
+                {/*            </h1>*/}
+                {/*            <p className="font-semibold text-lg text-primary dark:text-white max-w-2xl mx-auto">*/}
+                {/*                Track competitive programming progress, analyze performance metrics, and monitor student*/}
+                {/*                growth across multiple platforms.*/}
+                {/*            </p>*/}
+                {/*        </div>*/}
+                {/*    )}*/}
 
                     {/*{location.pathname.startsWith('/students/') && (*/}
                     {/*    <div className="mb-6">*/}

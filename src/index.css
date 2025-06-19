@@ -316,7 +316,11 @@
   }
   body {
     @apply bg-background text-foreground;
+
   }
+
+
+
   :root {
     --text-50: #f4ecf9;
     --text-100: #e8d9f2;

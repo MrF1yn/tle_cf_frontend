@@ -8,6 +8,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import {Progress} from "@/components/ui/progress.tsx";
 import {ProgressIndicator} from "@/custom-components/ProgressIndicator.tsx";
+import {AnimatedTabs} from "@/custom-components/AnimatedTabs.tsx";
 
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -66,18 +67,18 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-1">
-                        <NavigationLink id="home" icon={Home} to="/">
-                            Home
-                        </NavigationLink>
-                        <NavigationLink id="dashboard" icon={Users} to="/dashboard">
-                            Dashboard
-                        </NavigationLink>
-                        <NavigationLink id="settings" icon={Settings} to="/settings">
-                            Settings
-                        </NavigationLink>
-                        <div className="w-px h-6 bg-primary mx-2"></div>
-                        <ProgressIndicator/>
-                        <ThemeToggle/>
+                        {/*<NavigationLink id="home" icon={Home} to="/">*/}
+                        {/*    Home*/}
+                        {/*</NavigationLink>*/}
+                        {/*<NavigationLink id="dashboard" icon={Users} to="/dashboard">*/}
+                        {/*    Dashboard*/}
+                        {/*</NavigationLink>*/}
+                        {/*<NavigationLink id="settings" icon={Settings} to="/settings">*/}
+                        {/*    Settings*/}
+                        {/*</NavigationLink>*/}
+
+
+                        <AnimatedTabs/>
                     </div>
 
                     {/* Mobile menu */}
