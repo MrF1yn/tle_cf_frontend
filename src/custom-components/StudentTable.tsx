@@ -261,10 +261,11 @@ export default function StudentTable() {
 
                                             <TableRow key={student.id}
                                                       className="hover:bg-gray-100 dark:hover:bg-secondary/50 cursor-pointer font-semibold border-none"
-                                                      onClick={() => navigate(`/students/${student.id}`)}
                                             >
 
-                                                <TableCell className="p-3">
+                                                <TableCell className="p-3"
+                                                           onClick={() => navigate(`/students/${student.id}`)}
+                                                >
                                                     <div>
                                                         <div className="font-semibold">{student.name}</div>
                                                         <div className="text-sm text-muted-foreground md:hidden">
@@ -272,14 +273,17 @@ export default function StudentTable() {
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="hidden md:table-cell">
+                                                <TableCell className="hidden md:table-cell"
+                                                           onClick={() => navigate(`/students/${student.id}`)}>
                                                     {student.email}
                                                 </TableCell>
-                                                <TableCell className="hidden lg:table-cell">
+                                                <TableCell className="hidden lg:table-cell"
+                                                           onClick={() => navigate(`/students/${student.id}`)}>
                                                     {student.phone}
                                                 </TableCell>
-                                                <TableCell>
-                                                    <a className="bg-gray-500 hover:text-secondary text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
+                                                <TableCell
+                                                    onClick={() => navigate(`/students/${student.id}`)}>
+                                                    <a className="bg-gray-500 hover:text-secondary dark:hover:text-gray-100 text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
                                                        href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
                                                        target={"_blank"} rel="noopener noreferrer"
                                                     >
@@ -289,20 +293,23 @@ export default function StudentTable() {
                                                         <LinkIcon className="inline h-4 w-4 mr-1"/>
                                                     </a>
                                                 </TableCell>
-                                                <TableCell className="text-center">
+                                                <TableCell className="text-center"
+                                                           onClick={() => navigate(`/students/${student.id}`)}>
                                                 <span
                                                     className="inline-flex items-center px-2 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                                                     {student.currentRating}
                                                 </span>
                                                 </TableCell>
-                                                <TableCell className="text-center hidden sm:table-cell">
+                                                <TableCell className="text-center hidden sm:table-cell"
+                                                           onClick={() => navigate(`/students/${student.id}`)}>
                                                 <span
                                                     className="inline-flex items-center px-2 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                                     {student.maxRating}
                                                 </span>
                                                 </TableCell>
                                                 <TableCell
-                                                    className="hidden xl:table-cell text-sm text-muted-foreground">
+                                                    className="hidden xl:table-cell text-sm text-muted-foreground"
+                                                    onClick={() => navigate(`/students/${student.id}`)}>
                                                     {new Date(student.lastSyncedAt).toLocaleString()}
                                                 </TableCell>
                                                 <TableCell>
