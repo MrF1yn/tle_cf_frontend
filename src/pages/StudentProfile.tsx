@@ -151,20 +151,20 @@ const StudentProfile: React.FC = () => {
                                              className="w-full h-full rounded-full object-cover"/>
                                     ) : (
                                         <span
-                                            className="text-4xl">{student.name.split(' ').map(n => n[0]).join('')}</span>
+                                            className="text-xl lg:text-4xl">{student.name.split(' ').map(n => n[0]).join('')}</span>
                                     )}
                                 </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{student.name}</h1>
-                                <p className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2">
+                            <div className="flex-1 min-w-0 ">
+                                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white break-all">{student.name}</h1>
+                                <div className="text-lg text-gray-600 dark:text-gray-300 mt-1 flex gap-2 flex-col md:flex-row w-fit">
                                     <a className="bg-primary hover:text-muted text-white dark:bg-secondary px-2 py-1 rounded text-sm items-center justify-center inline-flex gap-1"
                                        href={`https://codeforces.com/profile/${student.codeforcesHandle}`}
                                        target={"_blank"} rel="noopener noreferrer"
                                     >
                                         <LinkIcon className="inline h-4 w-4 mr-1"/>
                                                     <span
-                                                        className={"font-semibold hover:underline  "}
+                                                        className={"font-semibold hover:underline break-all "}
                                                     >{student.codeforcesHandle}</span>
 
                                     </a>
@@ -173,16 +173,18 @@ const StudentProfile: React.FC = () => {
                                     >
                                         <Medal className="inline h-4 w-4 mr-1"/>
                                                     <span
-                                                        className={"font-semibold  "}
+                                                        className={"font-semibold break-all "}
                                                     >{student.rank}</span>
 
                                     </span>
-                                </p>
+                                </div>
                                 <div
                                     className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-600 dark:text-gray-300">
                                     <div className="flex items-center gap-1">
                                         <Mail className="w-4 h-4"/>
-                                        {student.email}
+                                        <a href={`mailto:${student.email}`} className="hover:underline break-all">
+                                            {student.email}
+                                        </a>
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <Phone className="w-4 h-4"/>
