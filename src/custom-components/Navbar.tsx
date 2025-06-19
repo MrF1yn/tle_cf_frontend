@@ -21,6 +21,7 @@ export function Navbar() {
     };
     const activeTab = getActiveTab();
     const {processes} = useStudentStore();
+    const navigate = useNavigate();
     const NavigationLink = ({id, icon: Icon, children, onClick, to}: any) => {
         const navigate = useNavigate();
 
@@ -47,9 +48,12 @@ export function Navbar() {
         <nav
             className="bg-card backdrop-blur-xl  sticky top-0 z-50">
             <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="flex items-center justify-between h-16"
+
+                >
                     {/* Logo and Brand */}
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3 cursor-pointer"
+                         onClick={() => {navigate("/")}}>
                         <div
                             className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600
                                  rounded-xl flex items-center justify-center shadow-lg">

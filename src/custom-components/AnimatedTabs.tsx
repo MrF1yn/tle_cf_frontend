@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+// import { useState } from "react";
 import {ProgressIndicator} from "@/custom-components/ProgressIndicator.tsx";
 import {ThemeToggle} from "@/custom-components/ThemeToggle.tsx";
 import {Home, Settings, Users} from "lucide-react";
@@ -26,7 +26,14 @@ const defaultTabs: TabItem[] = [
 ];
 
 export function AnimatedTabs({ tabs = defaultTabs }: AnimatedTabsProps) {
-    const [activeTab, setActiveTab] = useState(tabs[0]?.id || "");
+    // const [activeTab, setActiveTab] = useState(tabs[0]?.id || "");
+    const getActiveTab = () => {
+        if (location.pathname === "/" || location.pathname === "/home") return "home";
+        if (location.pathname.startsWith("/dashboard")) return "dashboard";
+        if (location.pathname.startsWith("/settings")) return "settings";
+        return "";
+    };
+    const activeTab = getActiveTab();
     const navigate = useNavigate();
     return (
         <div className="flex space-x-1">
@@ -46,7 +53,7 @@ export function AnimatedTabs({ tabs = defaultTabs }: AnimatedTabsProps) {
                 <button
                     key={tab.id}
                     onClick={() => {
-                        setActiveTab(tab.id);
+                        // setActiveTab(tab.id);
                         navigate(tab.to);
                     }}
                     className={`${
