@@ -301,8 +301,8 @@ const StudentProfile: React.FC = () => {
                                     <div className="mb-6">
                                         <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Rating
                                             Progress</h3>
-                                        <div className="h-64">
-                                            <ResponsiveContainer width="100%" height="100%">
+                                        <div className="h-64 overflow-x-auto">
+                                            <ResponsiveContainer minWidth={"700px"} width="100%" height="100%" >
                                                 <AreaChart data={ratingChartData}>
                                                     <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
                                                     <XAxis dataKey="date" stroke="#6b7280"/>
@@ -527,8 +527,8 @@ const StudentProfile: React.FC = () => {
                                 <div>
                                     <h3 className="text-lg font-medium mb-4 text-black dark:text-white">Rating
                                         Distribution</h3>
-                                    <div className="h-64">
-                                        <ResponsiveContainer width="100%" height="100%">
+                                    <div className="h-64 overflow-x-auto">
+                                        <ResponsiveContainer minWidth={"700px"} width="100%" height="100%">
                                             <BarChart data={getRatingDistribution()}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#374151"/>
                                                 <XAxis dataKey="range" stroke="#6b7280"/>
