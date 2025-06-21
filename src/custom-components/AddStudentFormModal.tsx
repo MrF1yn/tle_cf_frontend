@@ -54,7 +54,9 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
             setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
 
         } catch (error) {
-            toast.error("Failed to add student")
+            toast.error("Failed to add student " + (error instanceof Error ? error.message : 'Unknown error'), {
+                description: "Please try again later",
+            })
         }
 
 
