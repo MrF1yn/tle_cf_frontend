@@ -46,7 +46,7 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
                 description: "This may take a few seconds",
             })
             const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/student/students", {
-                email: form.email,
+                email: form.email || `${form.codeforcesHandle}@gmail.com`,
                 name: form.name,
                 codeforcesHandle: form.codeforcesHandle
             })
