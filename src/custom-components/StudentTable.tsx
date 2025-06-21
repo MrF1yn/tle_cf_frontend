@@ -320,7 +320,7 @@ export default function StudentTable() {
                                                                 size="sm"
                                                                 variant="ghost"
                                                                 onClick={() => navigate(`/students/${student.id}`)}
-                                                                className="h-8 px-2"
+                                                                className="h-8 px-2 cursor-pointer"
                                                             >
                                                                 <Eye className="h-3 w-3"/>
                                                             </Button>
@@ -328,7 +328,7 @@ export default function StudentTable() {
                                                                 <Button
                                                                     size="sm"
                                                                     variant="ghost"
-                                                                    className="h-8 px-2"
+                                                                    className="h-8 px-2 cursor-pointer"
                                                                 >
                                                                     <Edit className="h-3 w-3"/>
                                                                 </Button>
@@ -336,7 +336,7 @@ export default function StudentTable() {
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
-                                                                className="h-8 px-2 hover:text-red-600 "
+                                                                className="h-8 px-2 hover:text-red-600 cursor-pointer"
                                                                 onClick={() => deleteStudent(student.id)}
                                                             >
                                                                 <Trash2 className="h-3 w-3"/>
