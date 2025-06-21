@@ -30,10 +30,10 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
             })
             return
         }
-
+        const id = Date.now();
 
         try {
-            const id = Date.now();
+
             setProcesses([...processes, {
                 id: id,
                 name: `Adding ${form.name}`,
@@ -50,11 +50,17 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
                 name: form.name,
                 codeforcesHandle: form.codeforcesHandle
             })
+            console.error("Response from add student", response.data)
+            if (response.data.status !== 'success') {
+                throw new Error(response.data.message || "Failed to add student")
+            }
             addStudent(mapToStudent(response.data.data))
             setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
 
         } catch (error) {
-            toast.error("Failed to add student " + (error instanceof Error ? error.message : 'Unknown error'), {
+            console.error("Failed to add student", error)
+            setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
+            toast.error("Failed to add student " + (error as any).message, {
                 description: "Please try again later",
             })
         }
