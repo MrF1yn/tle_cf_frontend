@@ -49,10 +49,10 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
                 email: form.email?.trim() || `${form.codeforcesHandle.trim()}@gmail.com`,
                 name: form.name.trim(),
                 // codeforcesHandle: form.codeforcesHandle
-                phoneNumber: form.phone.trim(),
+                phoneNumber: form.phone? form.phone.trim() : null,
         })
             console.log("Response from add student", response.data)
-            if (response.data.status !== 'success') {
+            if (!response.data.success) {
                 throw new Error(response.data.message || "Failed to add student")
             }
             //check if the codeforecesHandle has changed
@@ -64,10 +64,11 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
                     codeforcesHandle: form.codeforcesHandle.trim()
                 })
                 console.log("Response from add student", response.data)
-                if (response.data.status !== 'success') {
+                if (!response.data.success) {
                     throw new Error(response.data.message || "Failed to add student")
                 }
             }
+            toast.success("Student updated successfully")
             updateStudent(student.id, mapToStudent(response.data.data))
             setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
 
@@ -81,7 +82,7 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
         }
 
 
-        setForm({name: '', email: '', phone: '', codeforcesHandle: ''})
+        // setForm({name: '', email: '', phone: '', codeforcesHandle: ''})
         setOpen(false)
     }
 

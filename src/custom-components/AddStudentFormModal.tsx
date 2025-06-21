@@ -51,7 +51,7 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
                 codeforcesHandle: form.codeforcesHandle.trim()
             })
             console.log("Response from add student", response.data)
-            if (response.data.status !== 'success') {
+            if (!response.data.success) {
                 throw new Error(response.data.message || "Failed to add student")
             }
             addStudent(mapToStudent(response.data.data))
