@@ -48,6 +48,7 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
             const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/student/students", {
                 email: form.email?.trim() || `${form.codeforcesHandle.trim()}@gmail.com`,
                 name: form.name.trim(),
+                phoneNumber: form.phone ? form.phone.trim() : null,
                 codeforcesHandle: form.codeforcesHandle.trim()
             })
             console.log("Response from add student", response.data)
