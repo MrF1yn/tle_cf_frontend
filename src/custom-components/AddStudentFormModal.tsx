@@ -46,9 +46,9 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
                 description: "This may take a few seconds",
             })
             const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/student/students", {
-                email: form.email || `${form.codeforcesHandle}@gmail.com`,
-                name: form.name,
-                codeforcesHandle: form.codeforcesHandle
+                email: form.email?.trim() || `${form.codeforcesHandle.trim()}@gmail.com`,
+                name: form.name.trim(),
+                codeforcesHandle: form.codeforcesHandle.trim()
             })
             console.error("Response from add student", response.data)
             if (response.data.status !== 'success') {

@@ -46,18 +46,18 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
                 description: "This may take a few seconds",
             })
             let response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/student/students/${student.id}/update`, {
-                email: form.email,
-                name: form.name,
+                email: form.email?.trim() || `${form.codeforcesHandle.trim()}@gmail.com`,
+                name: form.name.trim(),
                 // codeforcesHandle: form.codeforcesHandle
-                phoneNumber: form.phone,
-            })
+                phoneNumber: form.phone.trim(),
+        })
             //check if the codeforecesHandle has changed
             if (form.codeforcesHandle && form.codeforcesHandle !== student.codeforcesHandle) {
                 toast(`Updating Codeforces Handle for ${form.name}`, {
                     description: "This may take a few seconds",
                 });
                 response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/student/students/${student.id}/codeforces`, {
-                    codeforcesHandle: form.codeforcesHandle
+                    codeforcesHandle: form.codeforcesHandle.trim()
                 })
             }
             updateStudent(student.id, mapToStudent(response.data.data))
