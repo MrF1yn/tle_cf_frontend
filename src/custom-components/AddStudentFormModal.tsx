@@ -50,7 +50,7 @@ export function AddStudentFormModal({children}: StudentFormModalProps) {
                 name: form.name.trim(),
                 codeforcesHandle: form.codeforcesHandle.trim()
             })
-            console.error("Response from add student", response.data)
+            console.log("Response from add student", response.data)
             if (response.data.status !== 'success') {
                 throw new Error(response.data.message || "Failed to add student")
             }

@@ -30,10 +30,10 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
             })
             return
         }
-
+        const id = Date.now();
 
         try {
-            const id = Date.now();
+
             setProcesses([...processes, {
                 id: id,
                 name: `Editing ${form.name}`,
@@ -51,6 +51,10 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
                 // codeforcesHandle: form.codeforcesHandle
                 phoneNumber: form.phone.trim(),
         })
+            console.log("Response from add student", response.data)
+            if (response.data.status !== 'success') {
+                throw new Error(response.data.message || "Failed to add student")
+            }
             //check if the codeforecesHandle has changed
             if (form.codeforcesHandle && form.codeforcesHandle !== student.codeforcesHandle) {
                 toast(`Updating Codeforces Handle for ${form.name}`, {
@@ -59,12 +63,21 @@ export function EditStudentFormModal({children, student}: StudentFormModalProps)
                 response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/student/students/${student.id}/codeforces`, {
                     codeforcesHandle: form.codeforcesHandle.trim()
                 })
+                console.log("Response from add student", response.data)
+                if (response.data.status !== 'success') {
+                    throw new Error(response.data.message || "Failed to add student")
+                }
             }
             updateStudent(student.id, mapToStudent(response.data.data))
             setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
 
         } catch (error) {
             toast.error("Failed to add student")
+            console.error("Failed to add student", error)
+            setProcesses(processes.map(p => p.id === id ? {...p, progress: 100, status: 'completed'} : p))
+            toast.error("Failed to add student " + (error as any).message, {
+                description: "Please try again later",
+            })
         }
 
 
